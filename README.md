@@ -1,4 +1,4 @@
-# Readora 📚
+# Readora 
 
 A web-based ebook platform where users can browse, read, download, and save their favorite books.
 
@@ -50,7 +50,21 @@ readora/
 └── books/              # All ebook PDF files
 ```
 
+## Screenshots
+
+### Page d'accueil
+![Home](screenshots/home1.png)
+![Home](screenshots/home2.png)
+![Home](screenshots/home3.png)
+
+### Page de login
+![Login](screenshots/login.png)
+![Register](screenshots/register.png)
+
+### Dashboard
+![Dashboard](screenshots/welcome.png)
+
 ## License
 
 This project is for educational purposes.
-1
+
