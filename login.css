@@ -1,0 +1,197 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ── BOÎTE PRINCIPALE ── */
+.container {
+    position: relative;
+    width: 850px;
+    height: 550px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 0 30px rgba(0,0,0,.2);
+    margin: 20px;
+    overflow: hidden;
+}
+
+/* ── FORMULAIRES ── */
+.form-box {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: #fff;
+    transition: all .6s ease-in-out;
+}
+
+form { width: 100%; }
+
+/* Login visible par défaut, Register caché */
+.form-box.login {
+    right: 0;
+    opacity: 1;
+}
+
+.form-box.register {
+    right: -50%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Quand .container a la classe .active → Register visible, Login caché */
+.container.active .form-box.register {
+    right: 50%;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.container.active .form-box.login {
+    right: 50%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ── TITRES ── */
+.container h1 {
+    font-size: 36px;
+    margin: -10px 0;
+}
+
+/* ── CHAMPS DE SAISIE ── */
+.input-box {
+    position: relative;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 13px 50px 13px 20px;
+    background: #eee;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.input-box input::placeholder {
+    color: #888;
+    font-weight: 400;
+}
+
+.input-box input:focus {
+    outline: 2px solid #7494ee;
+    box-shadow: 0 0 5px rgba(116,148,236,.5);
+    transition: .1s;
+}
+
+.input-box i {
+    color: #888;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+/* ── MOT DE PASSE OUBLIÉ ── */
+.forgot-link {
+    margin: -15px 0 15px;
+}
+
+.forgot-link a {
+    font-size: 14.5px;
+    color: #333;
+    text-decoration: none;
+}
+
+/* ── BOUTON ── */
+.btn {
+    width: 100%;
+    height: 48px;
+    background: rgb(26,180,141);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.container p {
+    font-size: 14.5px;
+    margin: 15px 0;
+}
+
+/* ── PANNEAU DE BASCULE (animation) ── */
+.toggle-box::before {
+    content: '';
+    position: absolute;
+    left: -250%;
+    width: 300%;
+    height: 100%;
+    background: rgb(26,180,141);
+    z-index: 2;
+    transition: 1.8s ease-in-out;
+}
+
+.container.active .toggle-box::before {
+    left: 50%;
+}
+
+.toggle-panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    transition: .6s ease-in-out;
+}
+
+.toggle-panel.toggle-left {
+    left: 0;
+    transition-delay: 1.2s;
+}
+
+.container.active .toggle-panel.toggle-left {
+    left: -50%;
+    transition-delay: .6s;
+}
+
+.toggle-panel.toggle-right {
+    right: -50%;
+    transition-delay: .6s;
+}
+
+.container.active .toggle-panel.toggle-right {
+    right: 0;
+    transition-delay: 1.2s;
+}
+
+.toggle-panel p { margin-bottom: 20px; }
+
+.toggle-panel .btn {
+    width: 160px;
+    height: 46px;
+    background: transparent;
+    border: 2px solid #fff;
+    box-shadow: none;
+}

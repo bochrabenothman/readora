@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Readora</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <a href="#home" class="logo">
+        <img src="images/logo.png" alt="logo" style="height:40px; vertical-align:middle;">
+        Readora
+    </a>
+    <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#books">Our books</a>
+        <a href="#review">Review</a>
+    </nav>
+    <div class="icons">
+        <a href="#" onclick="goToDashboard(); return false;" title="My Favorites"><i class="fas fa-heart"></i></a>
+        <a href="#" onclick="goToDashboard(); return false;" title="Dashboard"><i class="fas fa-user"></i></a>
+    </div>
+</header>
+
+<section class="home" id="home">
+    <div class="content">
+        <h3>Welcome to Readora</h3>
+        <span>Discover a world of knowledge and imagination</span>
+        <p>Whether you're a bookworm, a student, or a professional, our extensive collection of ebooks has something for everyone.</p>
+        <a href="#books" class="btn">Read now</a>
+        <a href="login.html" class="btn">Get Started</a>
+    </div>
+</section>
+
+<section class="about" id="about">
+    <div class="about-container">
+        <div class="about-image">
+            <img src="images/about.png" alt="About Readora">
+        </div>
+        <div class="about-text">
+            <h3>Why Readora?</h3>
+            <p>Readora is your digital space for discovering amazing ebooks. From fiction to self-development, we bring knowledge closer to you.</p>
+            <p>Our goal is simple: make reading easy, accessible, and enjoyable anytime, anywhere.</p>
+            <a href="#books" class="btn">Explore Books</a>
+        </div>
+    </div>
+</section>
+
+<section class="search-section">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search Books...">
+        <i class="fas fa-search"></i>
+    </div>
+</section>
+
+<div class="categories">
+    <button data-category="all">All</button>
+    <button data-category="fiction">Fiction</button>
+    <button data-category="kids">Kids</button>
+    <button data-category="science">Science</button>
+    <button data-category="history">History</button>
+    <button data-category="self-development">Self Development</button>
+    <button data-category="romance">Romance</button>
+</div>
+
+<section class="books-container" id="books"></section>
+
+<section class="review" id="review">
+    <h1 class="heading"><span>Users</span> Reviews</h1>
+    <div class="review-container">
+        <div class="review-card">
+            <p>"Amazing platform! I found so many useful books."</p>
+            <h3>Ahmed</h3>
+            <div class="stars">★★★★★</div>
+        </div>
+        <div class="review-card">
+            <p>"Very easy to use and great collection."</p>
+            <h3>Sarah</h3>
+            <div class="stars">★★★★★</div>
+        </div>
+        <div class="review-card">
+            <p>"Perfect for students. Highly recommend!"</p>
+            <h3>Youssef</h3>
+            <div class="stars">★★★★☆</div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Readora | All rights reserved</p>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="java.js"></script>
+
+</body>
+</html>

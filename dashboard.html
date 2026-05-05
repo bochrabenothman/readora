@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Readora - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <img src="images/logo.png" alt="logo" style="height:40px; vertical-align:middle;">
+    Readora
+  </a>
+  <nav class="navbar">
+    <a href="index.html">Home</a>
+    <a href="index.html#books">Books</a>
+  </nav>
+  <div class="icons">
+    <a href="#" onclick="logoutUser(); return false;" title="Logout">
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </div>
+</header>
+
+<!-- USER INFO -->
+<section style="margin-top: 100px; text-align: center; padding: 2rem 9%;">
+  <h2 style="font-size:2.8rem; color:#333;">Welcome, <span id="userEmail" style="color:#27ae60;"></span></h2>
+</section>
+
+<!-- FAVORITES -->
+<section style="padding: 0 9% 4rem;">
+  <h1 class="heading">Your <span>Favorite</span> Books</h1>
+  <div id="favoritesContainer" class="books-container" style="margin-top: 2rem;">
+    <p style="text-align:center; font-size:1.6rem; color:#999; width:100%;">Loading your favorites...</p>
+  </div>
+</section>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script>
+const BOOKS = {
+  'sam-says-no': {
+    title: 'Sam Says No', author: 'Sam',
+    imgSrc: 'books/Sam-Says-NO.pdf', pdf: 'books/Sam-Says-NO.pdf'
+  },
+  'the-moment-we-met': {
+    title: 'The Moment We Met Was a Lie - Volume 1', author: 'Kari Wiethop',
+    imgSrc: 'images/themomentwemeet.png', pdf: 'books/themomentwemeetwasalie.pdf'
+  },
+  'selling-things': {
+    title: 'Selling Things', author: 'Orison Swett Marden and Joseph Francis MacGrail',
+    imgSrc: 'images/sellingthings.png', pdf: 'books/Selling-Things.pdf'
+  },
+  'the-asteroid-heist': {
+    title: 'The Asteroid Heist', author: 'Rex Hurst',
+    imgSrc: 'images/theasteroidman.png', pdf: 'books/The-Asteroid-Heist.pdf'
+  },
+  'the-last-honest-man': {
+    title: 'The Last Honest Man', author: 'Mark Puchon',
+    imgSrc: 'images/the last honest man.png', pdf: 'books/The-Last-Honest-Man.pdf'
+  },
+  'three-stories': {
+    title: 'Three Stories and Ten Poems', author: 'Ernest Hemingway',
+    imgSrc: 'images/three stories and ten poems.png', pdf: 'books/Three-Stories--Ten-Poems.pdf'
+  },
+  'dreams-for-stones': {
+    title: 'Dreams for Stones', author: 'Ann Warner',
+    imgSrc: 'images/dreamsofstones.png', pdf: 'books/Dreams-for-Stones.pdf'
+  },
+  'emma': {
+    title: 'Emma', author: 'Jane Austen',
+    imgSrc: 'images/emma.png', pdf: 'books/Emma.pdf'
+  },
+  'the-damon-girl': {
+    title: 'The Damon Girl', author: 'Penelope Fletcher',
+    imgSrc: 'images/theDamonGirl.png', pdf: 'books/The-Demon-Girl.pdf'
+  }
+};
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAHeG4_RzQs14ty45PyLD4fiP65JPfn-_s",
+  authDomain: "readora-df6cc.firebaseapp.com",
+  projectId: "readora-df6cc",
+  storageBucket: "readora-df6cc.firebasestorage.app",
+  messagingSenderId: "784039353043",
+  appId: "1:784039353043:web:e5867bb711b45b216ad226"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+  document.getElementById("userEmail").innerText = user.email;
+  loadFavorites(user);
+});
+
+function loadFavorites(user) {
+  const container = document.getElementById("favoritesContainer");
+
+  db.collection("users").doc(user.uid).get().then(doc => {
+    if (!doc.exists || !doc.data().favorites || doc.data().favorites.length === 0) {
+      container.innerHTML = '<p style="text-align:center; font-size:1.6rem; color:#999; width:100%;">No favorite books yet. <a href="index.html#books" style="color:#27ae60;">Browse books</a></p>';
+      return;
+    }
+
+    const favorites = doc.data().favorites;
+    container.innerHTML = "";
+
+    favorites.forEach(bookId => {
+      const book = BOOKS[bookId];
+      if (!book) return;
+
+      container.innerHTML += `
+        <div class="book-card">
+          <img src="${book.imgSrc}" alt="${book.title}">
+          <div class="book-info">
+            <h3>${book.title}</h3>
+            <p class="author">${book.author}</p>
+            <div class="actions">
+              <a href="${book.pdf}" target="_blank">Read</a>
+              <a href="${book.pdf}" download>Download</a>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  });
+}
+
+function logoutUser() {
+  auth.signOut().then(() => {
+    window.location.href = "login.html";
+  });
+}
+</script>
+
+<footer class="footer">
+  <p>© 2026 Readora | All rights reserved</p>
+</footer>
+
+</body>
+</html>
